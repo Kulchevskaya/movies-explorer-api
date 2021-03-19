@@ -112,7 +112,7 @@ const saveNewMovie = celebrate({
       .messages({
         'any.required': 'Обязательное поле',
       }),
-    movieId: Joi.string().required()
+    movieId: Joi.number().required()
       .messages({
         'any.required': 'Обязательное поле',
       }),

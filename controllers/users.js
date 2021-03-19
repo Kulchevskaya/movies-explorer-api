@@ -28,7 +28,11 @@ const createUser = (req, res, next) => {
         })
         .catch((err) => {
           if (err instanceof mongoose.Error.ValidationError) {
-            res.status(400).send({ message: 'Неверный email' });
+            const errors = {};
+            Object.keys(err.errors).forEach((key) => {
+              errors[key] = err.errors[key].message;
+            });
+            res.status(400).send({ message: errors });
           }
           next(err);
         });

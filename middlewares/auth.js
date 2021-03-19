@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken');
+
+const secretWord = process.env.JWT_SECRET || 'secret password';
 const { Forbidden } = require('../errors/index.js');
 
 const auth = (req, res, next) => {
@@ -8,7 +10,7 @@ const auth = (req, res, next) => {
   }
   const token = authorization.replace('Bearer ', '');
   try {
-    const user = jwt.verify(token, process.env.JWT_SECRET);
+    const user = jwt.verify(token, secretWord);
     req.user = user;
   } catch (err) {
     throw new Forbidden('Нет токена');

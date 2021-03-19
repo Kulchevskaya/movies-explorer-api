@@ -1,16 +1,15 @@
-/* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
 const { CelebrateError } = require('celebrate');
 
 const errorHandler = (err, req, res, next) => {
-  console.log(err);
   if (err instanceof CelebrateError) {
-    return res.status(400).send(err.details.get('body'));
+    return res.status(400)
+      .send({ message: err.details.get([...err.details.keys()][0]).details[0].message });
   }
   if (err.status) {
     return res.status(err.status).send({ message: err.message });
   }
-  return res.status(500).send({ message: `Что-то пошло не так: ${err.message}` });
+  res.status(500).send({ message: `Что-то пошло не так: ${err.message}` });
+  return next();
 };
 
 module.exports = errorHandler;

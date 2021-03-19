@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -18,8 +17,6 @@ mongoose.connect(MONGO_URL, {
   useFindAndModify: false,
 });
 
-mongoose.connection.on('open', () => console.log('DB connected'));
-
 app.use(cors());
 app.use(express.json());
 app.use(requestLogger);
@@ -36,6 +33,4 @@ app.use(routes);
 app.use(errorLogger);
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Application is running on port ${PORT}`);
-});
+app.listen(PORT);

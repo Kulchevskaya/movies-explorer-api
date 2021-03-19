@@ -9,7 +9,7 @@ router.use('/', authRouter);
 router.use('/users', authMiddleware, userRouter);
 router.use('/movies', authMiddleware, moviesRouter);
 
-router.get('*', () => {
+router.use('*', () => {
   throw new NotFound('Запрашиваемый ресурс не найден');
 });
 
